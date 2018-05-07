@@ -1,0 +1,39 @@
+{
+    "resources": [
+        "sfx.mp3",
+        "sfx1.2.ogg"
+    ],
+    "spritemap": {
+        "bounce": {
+            "start": 0,
+            "end": 0.195,
+            "loop": false
+        },
+        "booster": {
+            "start": 0.204,
+            "end": 0.515,
+            "loop": false
+        },
+        "ting": {
+            "start": 0.52305,
+            "end": 1.318,
+            "loop": false
+        },
+        "blaster": {
+            "start": 1.318,
+            "end": 1.638,
+            "loop": false,
+            "volume": 0.5
+        },
+        "pop": {
+            "start": 1.64,
+            "end": 1.83,
+            "loop": false
+        },
+        "explode-burst": {
+            "start": 1.835,
+            "end": 2.718,
+            "loop": false
+        }
+    }
+}

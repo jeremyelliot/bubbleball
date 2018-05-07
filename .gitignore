@@ -1,0 +1,5 @@
+.gitignore~
+/node_modules/
+/nbproject/
+/public/assets/stuff/
+/package-lock.json
