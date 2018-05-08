@@ -1,7 +1,7 @@
 /*
  * Base class for game levels
  */
-import Phaser from '../phaser-arcade-physics.js';
+import Phaser from '../phaser-arcade-physics.min.js';
 import * as Sprites from '../sprites/Sprites.js';
 
 export default class GameLevel extends Phaser.Scene {

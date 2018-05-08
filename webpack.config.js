@@ -1,4 +1,5 @@
 const path = require('path');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const config = {
     output: {
@@ -8,7 +9,8 @@ const config = {
     watchOptions: {
         ignored: /node_modules/
     },
-    mode: 'development'
+    mode: 'development',
+    plugins: [new UglifyJsPlugin()]
 };
 
 module.exports = config;

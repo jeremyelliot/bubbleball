@@ -1,4 +1,4 @@
-import Phaser from '../phaser-arcade-physics.js';
+import Phaser from '../phaser-arcade-physics.min.js';
 import GameSprite from './GameSprite.js';
 
 export default class Booster extends GameSprite {

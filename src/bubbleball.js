@@ -1,4 +1,4 @@
-import Phaser from './phaser-arcade-physics.js';
+import Phaser from './phaser-arcade-physics.min.js';
 import Player from './Player.js';
 import Bullet from './Bullet.js';
 import Mine from './Mine.js';

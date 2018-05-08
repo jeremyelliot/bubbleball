@@ -1,4 +1,4 @@
-import Phaser from '../phaser-arcade-physics.js';
+import Phaser from '../phaser-arcade-physics.min.js';
 import * as Sprites from '../sprites/Sprites.js';
 import GameLevel from './GameLevel.js';
 

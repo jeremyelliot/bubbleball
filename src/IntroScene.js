@@ -1,4 +1,4 @@
-import Phaser from './phaser-arcade-physics.js';
+import Phaser from './phaser-arcade-physics.min.js';
 
 export default class IntroScene extends Phaser.Scene {
 
