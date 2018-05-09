@@ -29,6 +29,7 @@ export default class GameLevel extends Phaser.Scene {
         this.minePositions;
         this.exitPoints;
         this.spriteGroups;
+        this.nextLevel = 'Level01';
     }
 
     gameOver(player) {
@@ -45,39 +46,47 @@ export default class GameLevel extends Phaser.Scene {
     }
 
     levelCompleted() {
+        var scene = this.scene;
         var player = this.player;
+        var nextLevel = this.nextLevel;
         console.log('levelCompleted');
         var image = this.add.sprite(0, 300, 'level-completed')
                 .setScrollFactor(0);
-        this.tweens.add({
-            targets: image,
-            x: 400,
-            ease: 'Linear',
-            duration: 600,
-            repeat: 0,
-            onComplete: function () {
-                player.kill(false).destroy();
-            }
+        var timeline = this.tweens.timeline({
+            tweens: [
+                {
+                    targets: image,
+                    x: 400,
+                    ease: 'Sine.easeOut',
+                    duration: 600,
+                    repeat: 0,
+                    onComplete: function () {
+                        player.kill(false).destroy();
+                    }
+                },
+                {
+                    targets: image,
+                    y: 300,
+                    ease: 'Linear',
+                    duration: 1000,
+                    repeat: 0
+
+                },
+                {
+                    targets: image,
+                    y: 800,
+                    ease: 'Sine.easeIn',
+                    duration: 1000,
+                    repeat: 0,
+                    onComplete: function () {
+                        if (nextLevel) {
+                            scene.stop();
+                            scene.launch(nextLevel);
+                        }
+                    }
+                }
+            ]
         });
     }
 
-    preload() {
-        this.load.image('background', 'assets/background-nebula.jpg');
-        this.load.image('bubbleball', 'assets/football-bw.png');
-        this.load.image('wall', 'assets/wall.png');
-        this.load.image('booster', 'assets/booster1.png');
-        this.load.image('droplet', 'assets/droplet.png');
-        this.load.image('bubble', 'assets/bubble.png');
-        this.load.image('bullet', 'assets/bullet5.png');
-        this.load.image('game-over', 'assets/game-over.png');
-        this.load.image('pipe', 'assets/pipe.png');
-        this.load.image('pipe-overlay', 'assets/pipe-overlay.png');
-        this.load.image('level-completed', 'assets/level-completed.png');
-
-        this.load.spritesheet('mine', 'assets/mine.png', {frameWidth: 64, frameHeight: 64, endFrame: 15});
-        this.load.spritesheet('explosion', 'assets/explosion.png', {frameWidth: 64, frameHeight: 64, endFrame: 24});
-
-        this.load.audioSprite('sfx', 'assets/sfx_1.3.ogg', 'assets/sfx.json');
-
-    }
 }

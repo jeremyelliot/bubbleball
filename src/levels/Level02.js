@@ -2,19 +2,11 @@ import Phaser from '../phaser-arcade-physics.min.js';
 import * as Sprites from '../sprites/Sprites.js';
 import GameLevel from './GameLevel.js';
 
-export default class Level01 extends GameLevel {
+export default class Level02 extends GameLevel {
 
     constructor(key) {
         super(key);
         this.minePositions = [
-            [400, 300],
-            [500, 400],
-            [600, 300],
-            [400, 50],
-            [500, 50],
-            [650, 100],
-            [1100, 150],
-            [1100, 250],
             [1100, 550]
         ];
         this.wallPositions = [
@@ -23,18 +15,13 @@ export default class Level01 extends GameLevel {
             [0, 500],
             [1586, 100],
             [1586, 300],
-            [1586, 500],
-            [200, 600],
-            [500, 200],
-            [1000, 250],
-            [1000, 400],
-            [1200, 450]
+            [1586, 500]
         ];
-        this.nextLevel = 'Level02';
+        this.nextLevel = 'IntroScene';
     }
 
     createPlayer() {
-        var player = new Sprites.Player(this, 1400, 200, 'bubbleball');
+        var player = new Sprites.Player(this, 100, 200, 'bubbleball');
         return player;
     }
 
@@ -54,7 +41,7 @@ export default class Level01 extends GameLevel {
             classType: Sprites.Booster,
             defaultKey: 'booster'
         });
-        boosters.create(800, 600, 'booster').body.immovable = true;
+//        boosters.create(800, 600, 'booster').body.immovable = true;
         boosters.create(1400, 600, 'booster').body.immovable = true;
         return boosters;
     }
