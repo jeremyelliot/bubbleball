@@ -15,19 +15,12 @@ export default class GameLevel extends Phaser.Scene {
             }
         });
         this.player;
-        this.walls;
-        this.boosters;
-        this.droplets;
-        this.bullets;
-        this.mines;
         this.audioSprite;
         this.score;
         this.cursorkeys;
         this.fireButton;
         this.timeLastFired = 0;
-        this.timeLastBoosted = 0;
         this.minePositions;
-        this.exitPoints;
         this.spriteGroups;
         this.nextLevel = 'Level01';
     }
