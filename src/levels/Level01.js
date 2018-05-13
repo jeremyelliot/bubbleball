@@ -30,6 +30,10 @@ export default class Level01 extends GameLevel {
             [1000, 400],
             [1200, 450]
         ];
+        this.boosterPositions = [
+            [800, 600],
+            [1400, 600]
+        ];
         this.nextLevel = 'Level02';
     }
 
@@ -54,8 +58,11 @@ export default class Level01 extends GameLevel {
             classType: Sprites.Booster,
             defaultKey: 'booster'
         });
-        boosters.create(800, 600, 'booster').body.immovable = true;
-        boosters.create(1400, 600, 'booster').body.immovable = true;
+        for (let position of this.boosterPositions) {
+            let booster = boosters.create(position[0], position[1], 'booster');
+            booster.body.immovable = true;
+            booster.anims.play('booster');
+        }
         return boosters;
     }
 

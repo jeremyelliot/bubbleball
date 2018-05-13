@@ -11,12 +11,18 @@ export default class Booster extends GameSprite {
     }
 
     hitPlayer(player) {
+        var anims = this.anims;
         if (this.body.touching.up
                 && !(this.body.touching.left || this.body.touching.right)
                 && player.body.velocity.y < 0
                 && this.scene.time.now > this.timeLastBoosted + 100
                 ) {
             this.scene.sound.playAudioSprite('sfx', 'booster');
+            anims.stop('booster');
+            anims.play('booster.boost')
+                    .once('animationcomplete', function () {
+                        anims.play('booster');
+                    });
             player.setVelocityX(player.body.angularVelocity / 2);
             var newVX = player.body.velocity.x * 1.2;
             var newVY = player.body.velocity.y * 1.2;
