@@ -24,20 +24,22 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         if (!this.isAlive())
             return;
         var bullet = this.scene.spriteGroups.bullets.getFirstDead(true);
-        bullet.setActive(true)
-                .setVisible(true)
-                .setPosition(
-                        this.body.x + this.displayWidth / 2,
-                        this.body.y + this.displayHeight / 2
-                        );
-        var bulletVX = bullet.fireVelocity;
-        bullet.setFlipX(false);
-        if (this.body.angularVelocity < 0) {
-            bulletVX *= -1;
-            bullet.setFlipX(true);
+        if (bullet) {
+            bullet.setActive(true)
+                    .setVisible(true)
+                    .setPosition(
+                            this.body.x + this.displayWidth / 2,
+                            this.body.y + this.displayHeight / 2
+                            );
+            var bulletVX = bullet.fireVelocity;
+            bullet.setFlipX(false);
+            if (this.body.angularVelocity < 0) {
+                bulletVX *= -1;
+                bullet.setFlipX(true);
+            }
+            bullet.setVelocity(bulletVX, 0);
+            this.scene.sound.playAudioSprite('sfx', 'blaster');
         }
-        bullet.setVelocity(bulletVX, 0);
-        this.scene.sound.playAudioSprite('sfx', 'blaster');
     }
 
     kill(explode = true) {
