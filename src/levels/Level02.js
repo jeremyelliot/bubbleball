@@ -7,7 +7,21 @@ export default class Level02 extends GameLevel {
     constructor(key) {
         super(key);
         this.minePositions = [
-            [1100, 550]
+            [400, 150],
+            [500, 200],
+            [600, 250],
+            [700, 300],
+            [800, 350],
+            [900, 400],
+            [1000, 450],
+            [1000, 150],
+            [400, 250],
+            [500, 300],
+            [600, 350],
+            [700, 400],
+            [800, 450],
+            [900, 500],
+            [1000, 550]
         ];
         this.wallPositions = [
             [0, 100],
@@ -17,11 +31,22 @@ export default class Level02 extends GameLevel {
             [1586, 300],
             [1586, 500]
         ];
+        this.boosterPositions = [
+            [1400, 600]
+        ];
+        this.platformPositions = [
+            [900, 450],
+            [800, 400],
+            [700, 350],
+            [600, 300],
+            [500, 250],
+            [400, 200]
+        ];
         this.nextLevel = 'IntroScene';
     }
 
     createPlayer() {
-        var player = new Sprites.Player(this, 100, 200, 'bubbleball');
+        var player = new Sprites.Player(this, 100, 400, 'bubbleball');
         return player;
     }
 
@@ -36,13 +61,27 @@ export default class Level02 extends GameLevel {
         return walls;
     }
 
+    createPlatforms() {
+        var platforms = this.physics.add.group({
+            classType: Sprites.Wall,
+            defaultKey: 'platform',
+            frameQuantity: 8
+        });
+        for (let position of this.platformPositions) {
+            platforms.create(position[0], position[1], 'platform')
+                    .body.immovable = true;
+        }
+        return platforms;
+    }
+
     createBoosters() {
         var boosters = this.physics.add.group({
             classType: Sprites.Booster,
             defaultKey: 'booster'
         });
-//        boosters.create(800, 600, 'booster').body.immovable = true;
-        boosters.create(1400, 600, 'booster').body.immovable = true;
+        for (let position of this.boosterPositions)
+            boosters.create(position[0], position[1], 'booster')
+                    .body.immovable = true;
         return boosters;
     }
 
@@ -109,6 +148,9 @@ export default class Level02 extends GameLevel {
         this.physics.add.collider(player, groups.walls, function (player, wall) {
             wall.hitPlayer(player);
         });
+        this.physics.add.collider(player, groups.platforms, function (player, platform) {
+            platform.hitPlayer(player);
+        });
         this.physics.add.collider(player, groups.boosters, function (player, booster) {
             booster.hitPlayer(player);
         });
@@ -150,6 +192,7 @@ export default class Level02 extends GameLevel {
         this.player = this.createPlayer();
         this.spriteGroups = {
             walls: this.createWalls(),
+            platforms: this.createPlatforms(),
             bullets: this.createBullets(),
             boosters: this.createBoosters(),
             droplets: this.createDroplets(),
