@@ -52,6 +52,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
                         scene.gameOver(player)
                     })
                     .play('explosion.explode');
+            scene.sound.playAudioSprite('sfx', 'explode-burst');
         }
         this.setActive(false)
                 .setVisible(false)
