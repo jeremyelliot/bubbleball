@@ -24,6 +24,9 @@ export default class Level02 extends GameLevel {
             [1000, 550]
         ];
         this.wallPositions = [
+            [1100, 100],
+            [1450, 200],
+            // end walls
             [0, 100],
             [0, 300],
             [0, 500],
@@ -35,12 +38,12 @@ export default class Level02 extends GameLevel {
             [1400, 600]
         ];
         this.platformPositions = [
-            [900, 450],
-            [800, 400],
-            [700, 350],
-            [600, 300],
+            [400, 200],
             [500, 250],
-            [400, 200]
+            [600, 300],
+            [700, 350],
+            [800, 400],
+            [900, 450]
         ];
         this.nextLevel = 'IntroScene';
     }
