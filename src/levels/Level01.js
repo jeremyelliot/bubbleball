@@ -38,7 +38,7 @@ export default class Level01 extends GameLevel {
     }
 
     createPlayer() {
-        var player = new Sprites.Player(this, 100, 200, 'bubbleball');
+        var player = new Sprites.Player(this, 100, 300, 'bubbleball');
         return player;
     }
 
