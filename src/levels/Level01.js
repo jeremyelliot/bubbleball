@@ -161,6 +161,7 @@ export default class Level01 extends GameLevel {
     }
 
     create() {
+        super.create();
         this.physics.world.setBounds(0, 0, 1600, 600);
         this.add.tileSprite(400, 300, 1600, 600, 'background')
                 .setScrollFactor(0.2);

@@ -185,7 +185,9 @@ export default class Level02 extends GameLevel {
         });
     }
 
-    create() {
+    create(data) {
+        super.create();
+        this.scoreboard.addPoints(data.score);
         this.physics.world.setBounds(0, 0, 1600, 600);
         this.add.tileSprite(400, 300, 1600, 600, 'background')
                 .setScrollFactor(0.2);

@@ -2,6 +2,7 @@
  * Base class for game levels
  */
 import Phaser from '../phaser-arcade-physics.min.js';
+import Scoreboard from '../Scoreboard.js';
 import * as Sprites from '../sprites/Sprites.js';
 
 export default class GameLevel extends Phaser.Scene {
@@ -16,7 +17,7 @@ export default class GameLevel extends Phaser.Scene {
         });
         this.player;
         this.audioSprite;
-        this.score;
+        this.scoreboard;
         this.cursorkeys;
         this.fireButton;
         this.timeLastFired = 0;
@@ -39,10 +40,10 @@ export default class GameLevel extends Phaser.Scene {
     }
 
     levelCompleted() {
+        var score = this.scoreboard.getScore();
         var scene = this.scene;
         var player = this.player;
         var nextLevel = this.nextLevel;
-        console.log('levelCompleted');
         var image = this.add.sprite(0, 300, 'level-completed')
                 .setScrollFactor(0);
         var timeline = this.tweens.timeline({
@@ -74,12 +75,19 @@ export default class GameLevel extends Phaser.Scene {
                     onComplete: function () {
                         if (nextLevel) {
                             scene.stop();
-                            scene.launch(nextLevel);
+                            scene.launch(nextLevel, {
+                                score: score
+                            });
                         }
                     }
                 }
             ]
         });
     }
-
+    
+    create() {
+        this.scoreboard = new Scoreboard(this, 20, 20);
+        this.scoreboard.addPoints(0);
+    }
+    
 }
