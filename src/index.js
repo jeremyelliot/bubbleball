@@ -3,6 +3,7 @@ import Phaser from './phaser-arcade-physics.min.js';
 import Level01 from './levels/Level01.js';
 import Level02 from './levels/Level02.js';
 import IntroScene from './IntroScene.js';
+import BootScene from './BootScene.js';
 
 window.game = new Phaser.Game({
     type: Phaser.AUTO,
@@ -16,6 +17,7 @@ window.game = new Phaser.Game({
         }
     },
     scene: [
+        new BootScene(),
         new IntroScene(), 
         new Level01('Level01'),
         new Level02('Level02')
