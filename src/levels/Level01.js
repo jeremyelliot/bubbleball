@@ -119,46 +119,6 @@ export default class Level01 extends GameLevel {
         return exitPoints;
     }
 
-    createColliders(player, groups) {
-        var scene = this;
-        // calls hitWorldBounds() on any bodies that are listening for 'worldbounds'
-        this.physics.world.on("worldbounds", function (body) {
-            if (body.gameObject.hitWorldBounds)
-                body.gameObject.hitWorldBounds(body);
-        });
-        this.physics.add.collider(player, groups.walls, function (player, wall) {
-            wall.hitPlayer(player);
-        });
-        this.physics.add.collider(player, groups.boosters, function (player, booster) {
-            booster.hitPlayer(player);
-        });
-        this.physics.add.collider(player, groups.mines, function (player, mine) {
-            mine.hitPlayer(player);
-        }, null, this);
-        this.physics.add.collider(groups.bullets, groups.mines, function (bullet, mine) {
-            mine.hitBullet(bullet);
-        });
-        this.physics.add.overlap(player, groups.bubbles, function (player, bubble) {
-            bubble.hitPlayer(player);
-        });
-        this.physics.add.overlap(player, groups.droplets, this.collectDroplet,
-                null, this);
-        this.physics.add.collider(groups.bullets, groups.walls, function (bullet, wall) {
-            bullet.hitWall();
-        });
-        this.physics.add.overlap(groups.exitPoints, player, function (player, exitPoint) {
-            exitPoint.disableBody();
-            player.setCollideWorldBounds(false);
-            player.onWorldBounds = false;
-            scene.tweens.add({
-                targets: player,
-                x: 1650,
-                y: 100,
-                duration: 400,
-                onComplete: scene.levelCompleted()
-            });
-        });
-    }
 
     create() {
         super.create();
@@ -171,6 +131,7 @@ export default class Level01 extends GameLevel {
         this.player = this.createPlayer();
         this.spriteGroups = {
             walls: this.createWalls(),
+            platforms: null,
             bullets: this.createBullets(),
             boosters: this.createBoosters(),
             droplets: this.createDroplets(),

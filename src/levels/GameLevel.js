@@ -84,10 +84,67 @@ export default class GameLevel extends Phaser.Scene {
             ]
         });
     }
-    
+
     create() {
         this.scoreboard = new Scoreboard(this, 20, 20);
         this.scoreboard.addPoints(0);
     }
-    
+
+    createColliders(player, groups) {
+        var scene = this;
+        // calls hitWorldBounds() on any bodies that are listening for 'worldbounds'
+        this.physics.world.on("worldbounds", function (body) {
+            if (body.gameObject.hitWorldBounds)
+                body.gameObject.hitWorldBounds(body);
+        });
+        // there are always walls and bullets
+        this.physics.add.collider(player, groups.walls, function (player, wall) {
+            wall.hitPlayer(player);
+        });
+        this.physics.add.collider(groups.bullets, groups.walls, function (bullet, wall) {
+            bullet.hitWall();
+        });
+        // these things may or may not be present
+        if (groups.platforms) {
+            this.physics.add.collider(player, groups.platforms, function (player, platform) {
+                platform.hitPlayer(player);
+            });
+        }
+        if (groups.boosters) {
+            this.physics.add.collider(player, groups.boosters, function (player, booster) {
+                booster.hitPlayer(player);
+            });
+        }
+        if (groups.mines) {
+            this.physics.add.collider(player, groups.mines, function (player, mine) {
+                mine.hitPlayer(player);
+            }, null, this);
+            this.physics.add.collider(groups.bullets, groups.mines, function (bullet, mine) {
+                mine.hitBullet(bullet);
+            });
+        }
+        if (groups.bubbles) {
+
+            this.physics.add.overlap(player, groups.bubbles, function (player, bubble) {
+                bubble.hitPlayer(player);
+            });
+        }
+        if (groups.droplets) {
+
+            this.physics.add.overlap(player, groups.droplets, this.collectDroplet,
+                    null, this);
+        }
+        this.physics.add.overlap(groups.exitPoints, player, function (player, exitPoint) {
+            exitPoint.disableBody();
+            player.setCollideWorldBounds(false);
+            player.onWorldBounds = false;
+            scene.tweens.add({
+                targets: player,
+                x: exitPoint.x,
+                y: exitPoint.y,
+                duration: 400,
+                onComplete: scene.levelCompleted()
+            });
+        });
+    }
 }
